@@ -10,5 +10,19 @@ while i < len(palavra):
     i = i + 1
 
 print(f"{segredo}\nerros: {erros}")
-letra = input("Letra: ")
+letra = input("Letra: ").lower()
+
+segredo = ""
+for c in palavra:
+    if c == ' ':
+        segredo = segredo + "   "
+    elif c.lower() == letra:
+        segredo = segredo + c + " "
+    else:
+        segredo = segredo + "_ "
+
+print(f"{segredo}\nerros: {erros}")
+
+
+
 
