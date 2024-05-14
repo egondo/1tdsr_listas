@@ -1,4 +1,4 @@
-def calcula_media(dados):
+def calcula_media(dados): 
     soma = 0
     for nota in dados:
         soma = soma + nota
