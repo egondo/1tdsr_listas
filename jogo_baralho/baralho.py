@@ -1,12 +1,18 @@
 import random
 
-def cria():
+def cria(tipo='normal'):
     deck = []
     for v in range(1, 14):
         deck.append( (v, 'O') )
         deck.append( (v, 'E') )
         deck.append( (v, 'C') )
         deck.append( (v, 'P') )
+
+    if tipo == 'espanhol':
+        for _ in range(12):
+           deck.pop(28)
+    elif tipo == 'double':
+        deck = deck + deck
     return deck
 
 def to_str(card):
@@ -51,13 +57,13 @@ def distribui(cartas: list, qtd: int):
         qtd = qtd - 1
     return resp
 
-if __name__ == "main":
-    monte = cria()
+if __name__ == "__main__":
+    monte = cria('')
     #embaralha(monte)
     #for carta in monte:
     #    print(to_str(carta))
 
-    embaralha(monte)
+    #embaralha(monte)
     carta = compra(monte)
     while carta != None:
         print(to_str(carta))
