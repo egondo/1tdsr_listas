@@ -27,8 +27,31 @@ def jogada_cpu(mao):
     pos = random.randint(0, len(mao) - 1)
     return mao.pop(pos)
     
-def pontos(carta):
-    if carta[0] >= 1 and carta[0] <= 3:
+def is_manilha(carta, vira):
+    if vira[0] == 7 and carta[0] == 12:
+        return True
+    elif vira[0] == 12 and carta[0] == 11:
+        return True
+    elif vira[0] == 11 and carta[0] == 13:
+        return True
+    elif vira[0] == 13 and carta[0] == 1:
+        return True
+    elif vira[0] + 1 == carta[0]:
+        return True
+    else:
+        return False
+
+def pontos(carta, vira):
+    if is_manilha(carta, vira):
+        if carta[1] == 'P':
+            return 400
+        elif carta[1] == 'C':
+            return 300
+        elif carta[1] == 'E':
+            return 200
+        else:
+            return 100
+    elif carta[0] >= 1 and carta[0] <= 3:
         return carta[0] * 30
     elif carta[0] == 11:
         return 12
@@ -37,11 +60,11 @@ def pontos(carta):
     else:
         return carta[0]    
 
-def ganhador(carta_um, carta_dois):
+def ganhador(carta_um, carta_dois, vira):
     print(bar.to_str(carta_um), bar.to_str(carta_dois))
-    if pontos(carta_um) > pontos(carta_dois):
+    if pontos(carta_um, vira) > pontos(carta_dois, vira):
         return -1
-    elif pontos(carta_um) == pontos(carta_dois):
+    elif pontos(carta_um, vira) == pontos(carta_dois, vira):
         return 0
     else:
         return 1
@@ -52,12 +75,15 @@ bar.embaralha(deck)
 mao_jog = bar.distribui(deck, 3)
 mao_cpu = bar.distribui(deck, 3)
 
+vira = bar.compra(deck)
+print(f"Vira: {bar.to_str(vira)}")
+
 ganho_jog = 0
 ganho_cpu = 0
 #Primeira rodada
 carta_jog = jogada(mao_jog)
 carta_cpu = jogada_cpu(mao_cpu)
-resp = ganhador(carta_jog, carta_cpu)
+resp = ganhador(carta_jog, carta_cpu, vira)
 if resp == -1:
     ganho_jog = ganho_jog + 1
 elif resp == 1:
@@ -69,7 +95,7 @@ else:
 #Segunda rodada
 carta_jog = jogada(mao_jog)
 carta_cpu = jogada_cpu(mao_cpu)
-resp = ganhador(carta_jog, carta_cpu)
+resp = ganhador(carta_jog, carta_cpu, vira)
 if resp == -1:
     ganho_jog = ganho_jog + 1
 elif resp == 1:
@@ -88,7 +114,7 @@ elif ganho_cpu == 2 and ganho_jog < 2:
 #terceira rodada
 carta_jog = jogada(mao_jog)
 carta_cpu = jogada_cpu(mao_cpu)
-resp = ganhador(carta_jog, carta_cpu)
+resp = ganhador(carta_jog, carta_cpu, vira)
 if resp == -1:
     ganho_jog = ganho_jog + 1
 elif resp == 1:
