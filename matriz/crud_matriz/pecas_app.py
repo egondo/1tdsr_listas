@@ -1,3 +1,5 @@
+import arquivos
+
 def insere_pecas(matriz: list):
     nome = input("Nome: ")
     serie = input("Série: ")
@@ -31,13 +33,31 @@ def exclui_pecas(matriz: list):
 
 def altera_pecas(matriz: list):
     #deixar para vcs fazerem 10min
-
-
-
+    serie = input("Número série: ")
+    pos = busca(matriz, serie)
+    if pos == -1:
+        print("Nao existe a peca")
+    else:
+        reg = matriz[pos]
+        nome = input(f"Nome ({reg[0]}):")
+        if len(nome) > 0:
+            reg[0] = nome
+        serie = input(f"Série ({reg[1]}): ")
+        if len(serie) > 0:
+            reg[1] = serie
+        origem = input(f"Origem ({reg[2]}):")
+        if len(origem) > 0:
+            reg[2] = origem
+        preco = input(f"Preco ({reg[3]}): ")
+        if len(preco) > 0:
+            reg[3] = float(preco)
+        qtd = input(f"Quantidade ({reg[4]}): ")
+        if len(qtd) > 0:
+            reg[4] = int(qtd)
 
 if __name__ == "__main__":
     opcao = 0
-    estoque = []
+    estoque = arquivos.le_pecas("pecas.csv")
     while opcao != 5:
         print("SISTEMA DE PEÇAS")
         print("1 - insere")
@@ -55,3 +75,5 @@ if __name__ == "__main__":
             consulta_pecas(estoque)
         elif opcao == 4:
             exclui_pecas(estoque)
+        elif opcao == 5:
+            arquivos.grava_pecas(estoque)
