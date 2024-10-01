@@ -37,3 +37,9 @@ def cadastra_partida(partida: dict):
     partida['casa'] = time_casa['id']
     partida['visi'] = time_visi['id']
     banco.insere_partida(partida)
+
+
+def monta_tabela_classificacao():
+    dados = banco.recupera_times()
+    #processar a lista dados gerando as outras informações e 
+    # imprimir a tabela na tela.    
