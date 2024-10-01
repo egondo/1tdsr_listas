@@ -44,3 +44,11 @@ def insere_time(time: dict):
             cur.execute(sql, time)
             time['id'] = new_id.getvalue()[0]
         con.commit()
+
+
+def recupera_times_completo():
+    sql = '''select nome, vitorias * 3 + empates as pg, vitorias + empates + derrotas as jogos, vitorias, empates, derrotas, gols_contra, gols_pro, gols_pro - gols_contra as saldo, (vitorias*3 + empates) / ((vitorias+empates+derrotas) * 3) from tb_time order by pg desc'''
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql)
+            return cur.fetchall()

@@ -40,6 +40,9 @@ def cadastra_partida(partida: dict):
 
 
 def monta_tabela_classificacao():
-    dados = banco.recupera_times()
+    #dados = banco.recupera_times()
     #processar a lista dados gerando as outras informações e 
     # imprimir a tabela na tela.    
+    dados = banco.recupera_times_completo()
+    for reg in dados:
+        print(reg)
