@@ -1,11 +1,21 @@
 from flask import Flask, request, jsonify
 import db 
+import banco
 
 app = Flask(__name__)
 
 @app.route("/carros", methods=["GET"])
 def recupera_todos_carros():
     return (db.carros, 200)
+
+@app.route("/carros/oracle", methods=["GET"])
+def recupera_all_cars():
+    dados = banco.consulta_todos()
+    if len(dados) > 0:
+        return dados, 200
+    else:
+        return {"title": "Nenhum carro na base", "status": 404}, 404
+    
 
 
 @app.route("/carros/<int:id>", methods=["GET"])
@@ -14,6 +24,12 @@ def recupera_id(id):
         if carro['id'] == id:
             return (carro, 200)
     return ({"msg": "carro não existe", "status": 404}, 404)
+
+@app.route("/carros/oracle", methods=["POST"])
+def insere_oracle():
+    dado = request.json
+    banco.insere(dado)
+    return dado, 200
 
 
 @app.route("/carros", methods=["POST"])
