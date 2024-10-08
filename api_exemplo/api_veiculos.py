@@ -28,7 +28,17 @@ def insere():
     db.carros.append(carro)
     return (carro, 201)
 
-
+@app.route("/carros", methods=["PUT"])
+def altera():
+    carro = request.json
+    for i in range(len(db.carros)):
+        info = db.carros[i]
+        if info['id'] == carro['id']:
+            db.carros[i] = carro
+            return jsonify(carro), 200
+    
+    info = {'msg': 'Carro não encontrado', "status": 404}
+    return info, 404
 
 
 app.run(debug=True)
