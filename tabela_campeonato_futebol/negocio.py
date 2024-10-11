@@ -44,5 +44,6 @@ def monta_tabela_classificacao():
     #processar a lista dados gerando as outras informações e 
     # imprimir a tabela na tela.    
     dados = banco.recupera_times_completo()
-    for reg in dados:
-        print(reg)
+    return dados
+    #for reg in dados:
+    #    print(reg)
