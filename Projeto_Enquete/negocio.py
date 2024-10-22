@@ -1,5 +1,12 @@
 import banco
 
+def recupera_enquete(id: int) -> dict:
+    enquete = banco.recupera_enquete(id)
+    perguntas = banco.recupera_perguntas_enquete(id)
+    enquete['perguntas'] = perguntas
+    return enquete
+
+
 def cadastra_enquete(enq: dict):
     banco.insere_enquete(enq)
     id = enq['id']
@@ -17,6 +24,13 @@ def cadastra_enquete(enq: dict):
                 banco.insere_opcao(opcao)
 
 if __name__ == "__main__":
+
+
+
+
+
+
+
     info = {"nome":"Pesquisa de intenção de voto", 
             "categoria": "política",
             "perguntas":[
