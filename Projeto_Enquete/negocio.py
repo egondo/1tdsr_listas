@@ -6,6 +6,15 @@ def recupera_enquete(id: int) -> dict:
     enquete['perguntas'] = perguntas
     return enquete
 
+def cadastra_respostas(pes: dict, respostas: list):
+    #pes = {"nome": "Joao Pedro", "idade": 23, "escolaridade": "superior",
+    #       "municipio": "São Paulo"}
+    banco.insere_pessoa(pes)
+
+    for resp in respostas:
+        resp['id_pessoa'] = pes['id']
+        banco.insere_resposta(resp)
+
 
 def cadastra_enquete(enq: dict):
     banco.insere_enquete(enq)

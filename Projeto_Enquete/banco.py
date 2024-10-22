@@ -7,6 +7,25 @@ def get_conexao():
     return oracledb.connect(user="pf0313", password="professor#23", 
     dsn="oracle.fiap.com.br/orcl")
 
+def insere_pessoa(pes: dict):
+    sql = "insert into tbr_pessoa(nome, idade, sexo, municipio, escolaridade) values(:nome, :idade, :sexo, :municipio, :escolaridade) returning id into :id"
+    con = get_conexao()
+    cur = con.cursor()
+    novo_id = cur.var(oracledb.NUMBER)
+    pes['id'] = novo_id
+    cur.execute(sql, pes)
+    con.commit()
+    pes['id'] = novo_id.getvalue()[0]
+    cur.close()
+    con.close()
+
+def insere_resposta(resp: dict):
+    sql = "insert into tbr_resposta(texto, datahora, id_pessoa, id_pergunta) values(:texto, current_timestamp, :id_pessoa, :id_pergunta)"
+    with get_conexao() as con:
+        with con.cursor() as cur:
+            cur.execute(sql, resp)
+        con.commit()
+
 
 def recupera_enquete(id: int) -> dict:
     sql = "select id, nome, categoria from tbr_enquete where id = :id"
