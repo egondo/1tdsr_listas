@@ -1,3 +1,4 @@
+produto;marca;loja;data;qtd;preco
 celular;LG;Centro;26/3/2023;82;1860
 celular;LG;Lapa;26/3/2023;67;1860
 celular;LG;Paulista;26/3/2023;28;1860
